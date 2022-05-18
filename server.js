@@ -248,7 +248,8 @@ app.post('/api/registra_usuario', (req, res, next) => {
         }else{  
             const accessToken = jwt.sign({ username: req.body.name,  role: row.role }, accessTokenSecret, { expiresIn: '1m' });
             res.cookie('accessToken', accessToken);
-            //console.log ("---------------1")
+            const decode = jwt.verify(accessToken, accessTokenSecret);
+            console.log ("decode: "+decode)
             res.sendFile(path.join(__dirname, 'formulario/home.html'));     
         }
       });  
